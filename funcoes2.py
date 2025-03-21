@@ -6,7 +6,7 @@ def loginUsuario(perfil):
         print('Bem-vindo, Usuário')
 
 
-loginUsuario('Admin')     # Testando com 'Admin'
-loginUsuario('admin')     # Testando com 'admin'
-loginUsuario('User')      # Testando com 'User'
+loginUsuario('Admin')     
+loginUsuario('admin')     
+loginUsuario('User')      
 loginUsuario('usuário')
