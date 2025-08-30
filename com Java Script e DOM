@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenando com JavaScript</title>
+</head>
+<body>
+    <h1>Ordenando com JavaScript e DOM</h1>
+
+    <div>
+        <input type="number" id="valor" placeholder="Digite um número">
+        <button onclick="add()">Adicionar</button>
+    </div>
+
+    <hr>
+
+    <div>
+        <select id="algoritmos">
+            <option value="bubble_sort">Bubble Sort</option>
+            <option value="selection_sort">Selection Sort</option>
+            <option value="quick_sort">Quick Sort</option>
+        </select>
+        <button onclick="ordenar()">Ordenar</button>
+        <button onclick="misturar()">Misturar</button>
+    </div>
+
+    <hr>
+
+    <ul id="valores"></ul>
+
+    <script src="ordenando.js"></script>
+    <script>
+        // a) Função add para adicionar valores à lista
+        function add() {
+            let campoValor = document.getElementById('valor');
+            let listaValores = document.getElementById('valores');
+
+            if (campoValor.value !== '') {
+                let node = document.createElement('li');
+                let textoNode = document.createTextNode(campoValor.value);
+                node.appendChild(textoNode);
+                listaValores.appendChild(node);
+                campoValor.value = '';
+            }
+        }
+
+        // b) Função ordenar para ordenar a lista
+        function ordenar() {
+            let listaValores = document.getElementById('valores');
+            let selectAlgoritmo = document.getElementById('algoritmos');
+            let vetor = [];
+
+            for (let i = 0; i < listaValores.children.length; i++) {
+                vetor.push(parseInt(listaValores.children[i].innerHTML));
+            }
+            
+            let algoritmo = selectAlgoritmo.options[selectAlgoritmo.selectedIndex].value;
+            
+            if (algoritmo === 'bubble_sort') {
+                bubble_sort(vetor);
+            } else if (algoritmo === 'selection_sort') {
+                selection_sort(vetor);
+            } else if (algoritmo === 'quick_sort') {
+                quick_sort(vetor, 0, vetor.length - 1);
+            }
+
+            listaValores.innerHTML = vetor.map(item => `<li>${item}</li>`).reduce((html, item) => html + item, '');
+        }
+
+        // c) Função misturar para embaralhar a lista
+        function misturar() {
+            let listaValores = document.getElementById('valores');
+            let vetor = [];
+
+            for (let i = 0; i < listaValores.children.length; i++) {
+                vetor.push(parseInt(listaValores.children[i].innerHTML));
+            }
+
+            shuffle(vetor, vetor.length * 2); // Embaralha com o dobro de trocas para garantir
+            
+            listaValores.innerHTML = vetor.map(item => `<li>${item}</li>`).reduce((html, item) => html + item, '');
+        }
+    </script>
+</body>
+</html>
